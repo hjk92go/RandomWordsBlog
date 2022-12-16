@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'KyoboHandwriting2020A';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/KyoboHandwriting2020A.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.Home_main {
+    width: 100%;
+    position: fixed;
+    top : 25%;
+    padding-bottom: 30px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.Home_main h1{
+    font-size: 4em;
+}
+.Home_main>p{
+    margin: 0;
+    font-size: 1.5em;
+    font-family: 'KyoboHandwriting2020A';
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+/* p태그의 동위선택연산자, p태그 바로 뒤의 p태그를 선택한다*/
+.Home_main>p+p{
+    color: darkblue;
+}
+
+.Home_Link{
+    width: 100%;
+    top:0;
+    display: flex;
+    position : fixed;
+    padding-top: 20px;
+    justify-content: right;
+}
+
+{/*Link는 개발자모드로 보면 a링크로 연결되어 있음을 확인할수 있다. 
+    그러므로 링크 디자인 넣을때 a링크 디자인으로 넣어줘야한다.
+    마진이나, 패딩값으로 링크사이간격 조정가능하다*/}
+
+.Home_Link a {
+    text-decoration: none;
+    color:black;
+    margin: 0px 10px
+    
+}    
