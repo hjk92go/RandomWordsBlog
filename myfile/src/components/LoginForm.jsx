@@ -1,4 +1,5 @@
 import Form from 'react-bootstrap/Form';
+import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { initializeApp } from "firebase/app";
 //파이어베이스 로그인 비밀번호 인증 임포트 그대로 가져와서 사용
@@ -7,23 +8,27 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //구글 로그인 하기
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../modules/currentUser";
 
-
+import '../css/LoginForm.css'
 
 //폼은 항상 새로고침이 일어나기 때문에 새로고침을 막아야한다.
 const LoginForm = () => {
-//페이지 이동하기위한 navigate();를 받아오도록하자
-    const navigate = useNavigate();
+  //페이지 이동하기위한 navigate();를 받아오도록하자
+  const navigate = useNavigate();
+  // 리덕스의 리듀서를 사용하기위한 디스패치
+  const dispatch = useDispatch();
 
 
-    //이메일과 비밀번호의 값을 가져올 state
-    const [email, setEmail] = useState();
-    const [password , setPassword] = useState();
+  //이메일과 비밀번호의 값을 가져올 state
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
 
-    //이메일로 회원가입하기위한 함수를 만들어준다
-    //아래의 함수는 firebase홈페이지 비밀번호 인증란에서 가져옴
-    const emailCreate = () => {
+  //이메일로 회원가입하기위한 함수를 만들어준다
+  //아래의 함수는 firebase홈페이지 비밀번호 인증란에서 가져옴
+  const emailCreate = () => {
     //getAuth는 파이어베이스앱에서 인증 부분을 받아오는 함수
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -37,14 +42,14 @@ const LoginForm = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode)
-        if ( errorCode == "auth/email-already-in-use") {
+        if (errorCode == "auth/email-already-in-use") {
           alert("이미 사용하고 있는 이메일입니다")
         }
-        else if ( errorCode=="auth/weak-password") {
+        else if (errorCode == "auth/weak-password") {
           alert("비밀번호를 6자리 이상으로 작성하세요");
         }
-    });
-    }
+      });
+  }
 
 
   // 이메일과 비밀번호로 로그인하기
@@ -55,15 +60,16 @@ const LoginForm = () => {
         // Signed in 
         const user = userCredential.user;
         console.log(user)
+        dispatch(userLogin(user)); //총 두군데의 유저 로그인을 추가해줌(사용은 총 3군데 )
         navigate('/');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode,errorMessage)
-        if (errorCode =="auth/wrong-password" ) {
+        console.log(errorCode, errorMessage)
+        if (errorCode == "auth/wrong-password") {
           alert("잘못된 비밀번호입니다")
-        } else if (errorCode == "auth/user-not-found" ) {
+        } else if (errorCode == "auth/user-not-found") {
           alert("없는 이메일입니다")
         }
       });
@@ -76,7 +82,7 @@ const LoginForm = () => {
     e.preventDefault();
     emailLogin();
   }
-    
+
   // 구글로 로그인하기 (팝업)
   const googleLogin = () => {
     const provider = new GoogleAuthProvider();
@@ -90,6 +96,7 @@ const LoginForm = () => {
         // The signed-in user info.
         const user = result.user;
         console.log(user)
+        dispatch(userLogin(user));
         navigate('/');
 
       }).catch((error) => {
@@ -100,7 +107,7 @@ const LoginForm = () => {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode,errorMessage)
+        console.log(errorCode, errorMessage)
       });
   }
 
@@ -108,25 +115,36 @@ const LoginForm = () => {
 
   return (
     <div>
-      <Form onSubmit={onsubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>이메일</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" onChange={(e)=>{setEmail(e.target.value)}}/>
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
+      <Container>
+        <Row>
+          <Col>
+            <Button variant="outline-primary" onClick={emailCreate} className='create_button'>아래의 이메일과 비밀번호로 회원가입</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={1}></Col> {/**이부분을 넣으니까 가운데 정렬됫음 */}
+          <Col xs={10} >
+            <Form onSubmit={onsubmit}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>이메일</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" onChange={(e)=>{setEmail(e.target.value)}}/>
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>비밀번호</Form.Label>
-          <Form.Control type="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          로그인
-        </Button>
-      </Form>
-      <Button onClick={emailCreate}>위 이메일과 비밀번호로 회원가입</Button>
-      <Button onClick={googleLogin}>구글로 로그인</Button>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>비밀번호</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} />
+              </Form.Group>
+              <Button variant="primary" type="submit" className="my_margin_auto">
+                로그인
+              </Button>
+            </Form>
+            <Button variant="outline-danger" onClick={googleLogin}>구글로 로그인</Button>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
