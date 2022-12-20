@@ -115,37 +115,41 @@ const LoginForm = () => {
 
   return (
     <div>
-      <Container>
-        <Row>
-          <Col>
-            <Button variant="outline-primary" onClick={emailCreate} className='create_button'>아래의 이메일과 비밀번호로 회원가입</Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={1}></Col> {/**이부분을 넣으니까 가운데 정렬됫음 */}
-          <Col xs={10} >
-            <Form onSubmit={onsubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>이메일</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange={(e)=>{setEmail(e.target.value)}}/>
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
+    <Container className="mt-5">
+      <Row>
+        <Col>
+          <Button variant="link" onClick={emailCreate} className='create_button'>아래의 정보로 회원가입</Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={1}></Col>{/**이거 넣으니까 가운데 정렬 */}
+        <Col xs={10} >
+          <Form onSubmit={onsubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>이메일</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" onChange={(e)=>{setEmail(e.target.value)}}/>
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>비밀번호</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} />
-              </Form.Group>
-              <Button variant="primary" type="submit" className="my_margin_auto">
-                로그인
-              </Button>
-            </Form>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>비밀번호</Form.Label>
+              <Form.Control type="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} />
+            </Form.Group>
+            <div className="my_center"> 
+            <Button variant="primary" type="submit">로그인</Button>
+            <hr />
+            <p className="hint_text"> 소셜아이디로 로그인</p>
             <Button variant="outline-danger" onClick={googleLogin}>구글로 로그인</Button>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+          </div>
+
+          </Form>
+
+        </Col>
+      </Row>
+    </Container>
+  </div>
   );
 };
 

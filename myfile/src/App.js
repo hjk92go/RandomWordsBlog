@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Guest from "./Pages/Guest";
 
 //Routes Route를 이용하여 화면 관리
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/loginform" element={<LoginForm />}></Route>
+        <Route path="/guest" element={<Guest />}></Route>
       </Routes>
     </div>
   );

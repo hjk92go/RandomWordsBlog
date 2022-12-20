@@ -20,7 +20,7 @@ const HomeLink = () => {
                         {/* *로그인했을때 보이는 화면 
                       * *단, 관리자 페이지는 홈페이지 주인만 보기 */}
                         <Link>포스트</Link>
-                        <Link>방명록</Link>
+                        <Link to='/guest'>방명록</Link>
                         <Link>관리자 페이지</Link>
                         <Link>마이페이지</Link>
                         <Link onClick={()=>{ dispatch(userLogout()) }}>로그아웃</Link>
@@ -29,7 +29,7 @@ const HomeLink = () => {
                     (<div>
                         {/**로그인되어있지 않을때 보여지는 링크 */}
                         <Link>포스트</Link>
-                        <Link to='/gest'>방명록</Link>
+                        <Link to='/guest'>방명록</Link>
                         <Link to='/loginForm'>로그인</Link>
                     </div>)
 
