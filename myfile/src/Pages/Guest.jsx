@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addGuest } from "../modules/guest";
-
 import { Button, Card, FloatingLabel, Form, ListGroup } from "react-bootstrap";
 
 const Guest = () => {
@@ -56,7 +55,7 @@ const Guest = () => {
       <Card style={{ width: "100%" }}>
         <ListGroup variant="flush">
           {guestList.map((guest) => (
-            <GuestText guest={guest} />
+            <GuestText key={guest.guestId} guest={guest} />
           ))}
         </ListGroup>
       </Card>
