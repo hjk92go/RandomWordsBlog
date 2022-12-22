@@ -8,7 +8,7 @@ import LoginForm from './components/LoginForm';
 import Guest from './Pages/Guest';
 import Board from './Pages/Board';
 import BoardPage from './Pages/BoardPage';
-import BoardWriteFrom from './Pages/BoardWriteFrom';
+import BoardWriteForm from './Pages/BoardWriteForm';
 
 
 // Routes와 Route를 이용하여 화면 관리
@@ -22,7 +22,7 @@ function App() {
         <Route path='/guest' element={<Guest />}></Route>
         <Route path='/board' element={<Board />}></Route>
         <Route path='/board/:id' element={<BoardPage />}></Route>
-        <Route path='/board/modifyform' element={<BoardWriteFrom />}></Route>
+        <Route path='/board/modifyform' element={<BoardWriteForm />}></Route>
       </Routes>
     </div>
   );

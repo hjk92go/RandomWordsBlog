@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { modifyBoard } from "../modules/board";
 
-const BoardWriteFrom = () => {
+const BoardWriteForm = () => {
     //navigate를 통해서 값을 보내주고 state에 사용
     const location = useLocation();
     const [board, setBoard] = useState(location.state);
@@ -59,4 +59,4 @@ const BoardWriteFrom = () => {
      );
 }
  
-export default BoardWriteFrom;
+export default BoardWriteForm;
